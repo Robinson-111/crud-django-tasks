@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details Task - {{task.title}}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border-color: rgba(255, 255, 255, 0.4);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+        }
+
+        .card-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .task-details {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2.5rem 0;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+            font-weight: 600;
+        }
+
+        .value {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .priority-badge.important-True {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .priority-badge.important-False {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: #ef4444;
+            color: white;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Task Details</h2>
+            </div>
+
+            <ul class="task-details">
+                <li class="detail-item">
+                    <span class="label">ID</span>
+                    <span class="value">{{task.id}}</span>
+                </li>
+                <li class="detail-item">
+                    <span class="label">Title</span>
+                    <span class="value">{{task.title|default:task}}</span>
+                </li>
+                <li class="detail-item">
+                    <span class="label">Description</span>
+                    <span class="value">{{task.description|default:"No description provided."}}</span>
+                </li>
+                <li class="detail-item">
+                    <span class="label">Priority</span>
+                    <span class="value">
+                        <span class="priority-badge important-{{task.important}}">
+                            {% if task.important %}High Priority{% else %}Normal Priority{% endif %}
+                        </span>
+                    </span>
+                </li>
+                <li class="detail-item">
+                    <span class="label">Created At</span>
+                    <span class="value">{{task.created_at|date:"M d, Y H:i"}}</span>
+                </li>
+            </ul>
+
+            <div class="actions">
+                <a href="{% url 'tasks' %}" class="btn btn-secondary">Back to Tasks</a>
+                <a href="{% url 'edit' task.id %}" class="btn btn-primary">Edit Task</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

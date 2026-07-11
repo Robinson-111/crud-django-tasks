@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Task</title>
 </head>
+
 <body>
-    
+
     <h1>Edit Task</h1>
 
+    <form method="POST"></form>
+    {%csrf_token%}
+    <input type="text" name="edit_name" placeholder="Title Task"><br><br>
+
+    <textarea name="edit_description" rows="5" placeholder="Description"></textarea>
+
 </body>
+
 </html>
