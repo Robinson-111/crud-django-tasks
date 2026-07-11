@@ -1,0 +1,9 @@
+django-admin startproject config .  #Crea el proyecto
+
+python manage.py runserver # Inicia el servidor
+
+python manage.py startapp 'nombre-app' # Crea las apps
+
+python manage.py shell #Shell de django
+
+python manage.py makemigrations #Prepara las migraciones

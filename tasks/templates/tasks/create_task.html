@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Tasks</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --accent: #5c6ac4;
+            --accent-dark: #4a54a1;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --border: #d1d5db;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: linear-gradient(180deg, #edf2ff 0%, #f8fafc 100%);
+            color: var(--text);
+        }
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .card {
+            width: 100%;
+            max-width: 520px;
+            background: var(--card);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            border-radius: 24px;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+            padding: 32px;
+        }
+        .card h1 {
+            margin: 0 0 12px;
+            font-size: 1.88rem;
+            letter-spacing: -0.04em;
+        }
+        .card p {
+            margin: 0 0 28px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .field {
+            width: 100%;
+            display: block;
+            margin-bottom: 18px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 14px 16px;
+            font-size: 1rem;
+            color: var(--text);
+            background: #fafbff;
+        }
+        .field:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(92, 106, 196, 0.12);
+        }
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 26px;
+            color: var(--text);
+            font-size: 0.96rem;
+        }
+        .checkbox-row input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+        }
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn,.btn-button,
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            border-radius: 14px;
+            border: none;
+            padding: 0 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+            text-decoration: none;
+        }
+        .btn {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 18px 32px rgba(92, 106, 196, 0.18);
+            
+        }
+        .btn-button {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 18px 32px rgba(92, 106, 196, 0.18);
+            background-color: red;
+            
+        }
+        .btn:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-button:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            background-color: red;
+        }
+        .btn-secondary {
+            background: #eef2ff;
+            color: var(--accent-dark);
+        }
+        .btn-secondary:hover {
+            background: #dde4ff;
+        }
+        a.back-link {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <section class="page">
+        <article class="card">
+            <h1>Create new task</h1>
+            <p>Add a title, description and select if the task is important. Then save to see update list.</p>
+
+            <form method="POST">
+                {% csrf_token %}
+                <input class="field" type="text" name="title" placeholder="Título de la tarea" required>
+                <textarea class="field" name="description" rows="5" placeholder="Descripción de la tarea"></textarea>
+
+                <label class="checkbox-row">
+                    <input type="checkbox" name="important">
+                    Marcar como importante
+                </label>
+
+                <div class="button-row">
+                    <button class="btn" type="submit">Guardar tarea</button>
+                    <a href="{% url 'tasks'%}">
+                        <button class="btn-button" type="button">Cancelar</button>
+                    </a>
+                </div>
+            </form>
+        </article>
+    </section>
+</body>
+</html>
